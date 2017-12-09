@@ -31,20 +31,5 @@ Here we have a function `init` which is invoked right after we define it. So now
 * APIRunner - how to interact or make with API calls
 * PermissionRunner - for mobile apps on how to get OS specific permissions
 
-For our current task, we will be implementing the `UIRunner` and get into the other runners later as we want to use them. Create a directory `src` a file inside called `Runner.js` in it where we will define our runners.
-
-```
-exports["showUI'"] = function(sc) {
-    return function (screen) {
-      return function() {
-        var screenJSON = JSON.parse(screen);
-        var screenName = screenJSON.tag;
-        screenJSON.screen = screenName;
-        window.showScreen(sc, screenJSON);
-      }
-    }
-};
-```
-
 
 
