@@ -25,11 +25,26 @@ Name this `index.html` and load it in your browser and you should see an input b
       init()
     </script>
 
-Here we have a function `init` which we invoke right after we define it. So now that we have a simple page, let's get this running with Presto. The initialization of Presto requires 3 implementations of runtimes, and they are:
+Here we have a function `init` which is invoked right after we define it. So now that we have a simple page, let's get this running with Presto. The initialization of Presto requires implementations of 3 runners, and they are:
 
 * UIRunner - how to run/show the UI
-* APIRunner - how to call API's
+* APIRunner - how to interact or make with API calls
 * PermissionRunner - for mobile apps on how to get OS specific permissions
 
-For our current task, we will be implementing the UIRunner and go deep into the other runners later as we want to use them. Create a file called `src/Main.purs` in the present directory.
+For our current task, we will be implementing the `UIRunner` and get into the other runners later as we want to use them. Create a directory `src` a file inside called `Runner.js` in it where we will define our runners.
+
+```
+exports["showUI'"] = function(sc) {
+    return function (screen) {
+      return function() {
+        var screenJSON = JSON.parse(screen);
+        var screenName = screenJSON.tag;
+        screenJSON.screen = screenName;
+        window.showScreen(sc, screenJSON);
+      }
+    }
+};
+```
+
+
 
