@@ -28,7 +28,7 @@ Name this `index.html` and load it in your browser and you should see an input b
 Here we have a function `init` which is invoked right after we define it. So now that we have a simple page, let's get this running with Presto. The initialization of Presto requires implementations of 3 runners, and they are:
 
 * UIRunner - how to run/show the UI
-* APIRunner - how to interact or make with API calls
+* APIRunner - how to interact or make API calls
 * PermissionRunner - for mobile apps on how to get OS specific permissions
 
 
