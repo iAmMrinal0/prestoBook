@@ -18,7 +18,7 @@ The above function is a curried function which takes a `successCallback` and a `
 ```
 window.showScreen = function (callBack, data) {
     window.callBack = callBack;
-    handleScreen
+    handleScreenAction(data);
 };
 ```
 
