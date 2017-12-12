@@ -27,7 +27,7 @@ instance interactMainScreen :: Interact Error MainScreen MainScreenAction where
   interact = defaultInteract
 ```
 
-Now your `src/Types`, after the imports, should look like this:
+Now your `src/Types.purs`, after the imports, should look like this:
 
 ```haskell
 module Types where
@@ -68,5 +68,5 @@ Time to run our app and see the results in action. The command to run is
 $ pulp build --to index.js
 ```
 
-Open `index.html` in your browser and you should see an input box and a submit button as our initial layout.
+Now include Open `index.html` in your browser and you should see an input box and a submit button as our initial layout.
 
