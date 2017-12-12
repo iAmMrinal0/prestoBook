@@ -10,7 +10,7 @@ Let's now try to see if we can send a button click from the UI and handle that i
 
 ```js
 function init () {
-  document.body.innerHTML = `<input type="text" name="Input"/>
+  document.body.innerHTML = `<input type="text" id="inputText"/>
   <button onclick="buttonClick()">Submit</button>
   `
 }
