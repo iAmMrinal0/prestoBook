@@ -8,7 +8,7 @@ Before we get started with using Presto, we will begin with a simple HTML page w
     <title>ToDo App with Presto</title>
   </head>
   <body>
-    <input type="text" name="Input"/>
+    <input type="text" id="inputText"/>
     <button>Submit</button>
   </body>
 </html>
@@ -19,7 +19,7 @@ Name this `index.html` and load it in your browser and you should see an input b
 ```html
 <script type="text/javascript">
   function init() {
-    document.body.innerHTML = `<input type="text" name="Input"/>
+    document.body.innerHTML = `<input type="text" id="inputText"/>
       <button>Submit</button>
     `
   }
