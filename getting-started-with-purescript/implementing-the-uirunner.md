@@ -26,7 +26,9 @@ function handleScreenAction (data) {
 }
 ```
 
-Basically the flow is that, when the app is run, it triggers an `event` and calls the callback with the required data for the screen which then calls `handleScreenAction` with the data passed. So we will now call `init()` inside `handleScreenAction` instead of invoking automatically. Now we will start with the PureScript code to show our initial layout. The following code goes in `src/Main.purs`
+Basically the flow is that, when the app is run, it triggers an `event` and calls the callback with the required data for the screen which then calls `handleScreenAction` with the data passed. So we will now call `init()` inside `handleScreenAction` instead of invoking automatically.
+
+Let's start with the PureScript code to show our initial layout. The following code goes in `src/Main.purs`
 
 ```haskell
 module Main where
