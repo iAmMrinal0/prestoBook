@@ -15,7 +15,7 @@ exports["showUI'"] = function(successCallback) {
 
 The above function is a curried function which takes a `successCallback` and a `screen` which internally calls a `showScreen` function which we define in `index.html` before our `init` function:
 
-```
+```js
 window.showScreen = function (callback, data) {
     window.callback = callback;
     handleScreenAction(data);
