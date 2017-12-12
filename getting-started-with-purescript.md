@@ -14,7 +14,7 @@ Before we get started with using Presto, we will begin with a simple HTML page w
 </html>
 ```
 
-Name this `index.html` and load it in your browser and you should see an input box with a button. Let's now try to load this using JavaScript. Add the snippet below after the `body` tag.
+Name this `index.html` and load it in your browser and you should see an input box with a button. Let's now try to load this using JavaScript. Remove the contents from `body` section and add the snippet below after the `body` tag.
 
 ```html
 <script type="text/javascript">
