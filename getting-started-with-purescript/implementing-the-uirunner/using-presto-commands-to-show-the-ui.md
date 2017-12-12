@@ -62,5 +62,11 @@ Remember `#C` where we had a placeholder text for the app logic? That's were we 
 appFlow = showUI MainScreen
 ```
 
+Time to run our app and see the results in action. The command to run is
 
+```
+$ pulp build --to index.js
+```
+
+Open `index.html` in your browser and you should see an input box and a submit button as our initial layout.
 
