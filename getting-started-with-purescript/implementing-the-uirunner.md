@@ -68,23 +68,23 @@ main = launchFreeFlow
 
 We implemented a `showUI'` function before which we will now use in the `#A` section. But before we do that we need to import it. PureScript has the concept of `Foreign Function Interface` which allows us to interact with code written in JavaScript \(or whichever backend you are using.\) And so for our `showUI'` function, the import definition looks something like this:
 
-```
+```haskell
 foreign import showUI' :: forall e. (String -> Eff (ui :: UI | e) Unit) ->  String -> (Eff (ui :: UI | e) Unit)
 ```
 
 Add the necessary imports required for `Eff` and `UI` which are defined in:
 
-```
+```haskell
 import Control.Monad.Eff (Eff)
 import Presto.Core.Types.App (UI)
 ```
 
 Now that we have our type definition and import, let's use the `showUI'` for the UIRunner in `#A`.
 
-```
+```haskell
 uiRunner :: UIRunner
 uiRunner screen = makeAff (\err success -> showUI' success screen)
 ```
 
-Essentially what we are doing here is that, we have a function called `makeAff` which takes a function as an argument. The function takes two arguments: an error and a success callback. So we call showUI' with the success callback and the screen.
+Essentially what we are doing here is that, we have a function called `makeAff` which takes a function as an argument. The function takes two arguments: an error and a success callback. So we call `showUI'` with the success callback and the screen disregarding the error callback.
 
