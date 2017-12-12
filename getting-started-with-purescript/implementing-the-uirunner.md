@@ -22,7 +22,7 @@ window.showScreen = function (callback, data) {
 };
 
 function handleScreenAction (data) {
-    init()
+  init()
 }
 ```
 
