@@ -1,6 +1,6 @@
 ## How to handle actions from the UI?
 
-Similar to how we used the `showUI` function to show the screen, Presto provides a function called `runUI` which returns us an action. Remember we wrote types for action for a screen in src/Types.purs?
+Similar to how we used the `showUI` function to show the screen, Presto provides a function called `runUI` which returns us an action. Remember we wrote types for action for a screen in `src/Types.purs`?
 
 ```haskell
 data MainScreenAction = MainScreenAction
@@ -21,5 +21,5 @@ function buttonClick () {
 }
 ```
 
-
+What we are doing here is that we match the action name we defined in the type and call the callback with it, notice the `()` at the end of the statement.
 
