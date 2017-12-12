@@ -86,5 +86,50 @@ uiRunner :: UIRunner
 uiRunner screen = makeAff (\err success -> showUI' success screen)
 ```
 
-Essentially what we are doing here is that, we have a function called `makeAff` which takes a function as an argument. The function takes two arguments: an error and a success callback. So we call `showUI'` with the success callback and the screen disregarding the error callback.
+Essentially what we are doing here is that, we have a function called `makeAff` which takes a function as an argument. The function takes two arguments: an error and a success callback. So we call `showUI'` with the success callback and the screen while disregarding the error callback. Now our `src/Main.purs` should look like this:
+
+```haskell
+module Main where
+
+import Prelude
+
+import Control.Monad.Aff (launchAff, makeAff)
+import Control.Monad.Aff.AVar (makeVar')
+import Control.Monad.Eff (Eff)
+import Control.Monad.State.Trans (evalStateT)
+import Data.StrMap (empty)
+import Data.Tuple (Tuple(..))
+import Presto.Core.Flow (APIRunner, PermissionCheckRunner, PermissionRunner(PermissionRunner), PermissionTakeRunner)
+import Presto.Core.Language.Runtime.Interpreter (Runtime(..), UIRunner, run)
+import Presto.Core.Types.App (UI)
+import Presto.Core.Types.Permission (PermissionStatus(..))
+
+foreign import showUI' :: forall e. (String -> Eff (ui :: UI | e) Unit) ->  String -> (Eff (ui :: UI | e) Unit)
+
+appFlow = pure unit -- App logic to be implemented here #C
+
+launchFreeFlow = do
+  let runtime = Runtime uiRunner permissionRunner apiRunner
+      freeFlow = evalStateT (run runtime appFlow)
+  launchAff (makeVar' empty >>= freeFlow)
+  where
+    uiRunner :: UIRunner
+    uiRunner screen = makeAff (\err success -> showUI' success screen)
+
+    apiRunner :: APIRunner
+    apiRunner req = pure "APIRunner" -- APIRunner to be implemented here #B
+
+    permissionRunner :: PermissionRunner
+    permissionRunner = PermissionRunner permissionCheckRunner permissionTakeRunner
+
+    permissionCheckRunner :: PermissionCheckRunner
+    permissionCheckRunner perms = pure PermissionGranted
+
+    permissionTakeRunner :: PermissionTakeRunner
+    permissionTakeRunner perms =  pure $ map (\x -> Tuple x PermissionDeclined) perms
+
+main = launchFreeFlow
+```
+
+Next we will see how to show our initial layout using Presto commands.
 
