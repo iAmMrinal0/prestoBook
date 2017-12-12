@@ -44,15 +44,18 @@ import Presto.Core.Types.Permission (PermissionStatus(..))
 appFlow = pure unit -- App logic to be implemented here #C
 
 launchFreeFlow = do
-  let runtime = Runtime uiRunner (PermissionRunner permissionCheckRunner permissionTakeRunner) apiRunner
+  let runtime = Runtime uiRunner permissionRunner apiRunner
       freeFlow = evalStateT (run runtime appFlow)
   launchAff (makeVar' empty >>= freeFlow)
   where
     uiRunner :: UIRunner
-    uiRunner a = pure "UIRunner" -- UIRunner to be implemented here #A
+    uiRunner screen = pure "UIRunner" -- UIRunner to be implemented here #A
 
     apiRunner :: APIRunner
     apiRunner req = pure "APIRunner" -- APIRunner to be implemented here #B
+
+    permissionRunner :: PermissionRunner
+    permissionRunner = PermissionRunner permissionCheckRunner permissionTakeRunner
 
     permissionCheckRunner :: PermissionCheckRunner
     permissionCheckRunner perms = pure PermissionGranted
@@ -63,7 +66,7 @@ launchFreeFlow = do
 main = launchFreeFlow
 ```
 
-We implemented a `showUI'` function before which we will now use in the `#A` section. But before we do that we need to import it. PureScript has the concept of `Foreign Function Interface` which allows us to interact with code written in JavaScript \(or whichever backend you are using.\) And so for our \`showUI' function, the import definition looks something like this:
+We implemented a `showUI'` function before which we will now use in the `#A` section. But before we do that we need to import it. PureScript has the concept of `Foreign Function Interface` which allows us to interact with code written in JavaScript \(or whichever backend you are using.\) And so for our `showUI'` function, the import definition looks something like this:
 
 ```
 foreign import showUI' :: forall e. (String -> Eff (ui :: UI | e) Unit) ->  String -> (Eff (ui :: UI | e) Unit)
@@ -76,12 +79,12 @@ import Control.Monad.Eff (Eff)
 import Presto.Core.Types.App (UI)
 ```
 
-Now that we have our type definition and import, let's use the `showUI'` for the UIRunner.
+Now that we have our type definition and import, let's use the `showUI'` for the UIRunner in `#A`.
 
 ```
 uiRunner :: UIRunner
-uiRunner a = makeAff (\err sc -> showUI' sc a)
+uiRunner screen = makeAff (\err success -> showUI' success screen)
 ```
 
-
+Essentially what we are doing here is that, we have a function called `makeAff` which takes a function as an argument. The function takes two arguments: an error and a success callback. So we call showUI' with the success callback and the screen.
 
