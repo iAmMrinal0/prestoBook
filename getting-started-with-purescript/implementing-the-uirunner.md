@@ -63,7 +63,25 @@ launchFreeFlow = do
 main = launchFreeFlow
 ```
 
-We implemented a `showUI'` function before which we will now use in the `#A` section
+We implemented a `showUI'` function before which we will now use in the `#A` section. But before we do that we need to import it. PureScript has the concept of `Foreign Function Interface` which allows us to interact with code written in JavaScript \(or whichever backend you are using.\) And so for our \`showUI' function, the import definition looks something like this:
+
+```
+foreign import showUI' :: forall e. (String -> Eff (ui :: UI | e) Unit) ->  String -> (Eff (ui :: UI | e) Unit)
+```
+
+Add the necessary imports required for `Eff` and `UI` which are defined in:
+
+```
+import Control.Monad.Eff (Eff)
+import Presto.Core.Types.App (UI)
+```
+
+Now that we have our type definition and import, let's use the `showUI'` for the UIRunner.
+
+```
+uiRunner :: UIRunner
+uiRunner a = makeAff (\err sc -> showUI' sc a)
+```
 
 
 
