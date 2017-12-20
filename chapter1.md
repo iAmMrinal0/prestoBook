@@ -3,7 +3,7 @@
 Before we start with the code, let's install Presto with
 
 ```
-bower install purescript-presto purescript-foreign-generic --save
+bower install purescript-presto --save
 ```
 
 Now, if you are asked for a suitable version for the `purescript-foreign-generic` package, select the option where version is `5.0.0` and above.
